@@ -6,7 +6,7 @@ const resubmitter = require("./resubmitter");
 
 async function runTasks(shellNums) {
   const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext(); // Playwright uses browser contexts
+  const context = await browser.newContext();
   const page = await context.newPage();
   const currentDate = new Date().getDay();
   const daysOfWeek = [
@@ -33,7 +33,7 @@ async function runTasks(shellNums) {
       if (isLastDealer) {
         console.log(`last dealer`);
       } else {
-        console.log(`No pending writes for ${url}, moving to the next.`);
+        console.log(`No pending writes for ${url}, moving to the next dealer.`);
       }
 
       continue;
@@ -45,7 +45,7 @@ async function runTasks(shellNums) {
         console.log(`Dealerships is closed on ${currentDay}, last dealer`);
       } else {
         console.log(
-          `Dealership is closed on ${currentDay}, moving to the next.`
+          `Dealership is closed on ${currentDay}, moving to the next dealer.`
         );
       }
       continue;
@@ -58,7 +58,7 @@ async function runTasks(shellNums) {
     await resubmitter(page);
     await new Promise((resolve) => setTimeout(resolve, 20 * 1000)); // wait 20 seconds
   }
-  console.log(`Completed tasks for: ${shellNums.join(", ")}`);
+  console.log(`Completed resubmits for the following dealers: ${shellNums.join(", ")}`);
   // await browser.close();
 }
 
@@ -75,8 +75,8 @@ async function main() {
     // runTasks([2326, 2333, 2340]),
   ];
 
-  // Run all tasks concurrently
-  await Promise.all(tasks);
+  // Run all tasks simultaneously; uncomment next line
+  //await Promise.all(tasks);
 }
 
 main().catch(console.error);
