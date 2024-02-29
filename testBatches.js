@@ -1,3 +1,7 @@
+// Note: 
+// This works in conjunction with a Python script which is currently not implemented
+// 
+/*
 async function scheduleBatches() {
   const taskBatches = [
     [2228, 2235, 2242],
@@ -23,3 +27,4 @@ async function scheduleBatches() {
 }
 
 scheduleBatches();
+*/
